@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    ports:
+      - ":11000:80"
+    environment:
+      - APACHE_PORT=11000
+      - APACHE_IP_BINDING=127.0.0.1
+    networks:
+      - nextcloud_network
+    volumes:
+      - nextcloud_data:/var/www/html
+    restart: unless-stopped
+
+volumes:
+  nextcloud_data:
+
+networks:
+  nextcloud_network:
+    driver: bridge
